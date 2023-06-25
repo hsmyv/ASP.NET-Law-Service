@@ -1,0 +1,19 @@
+﻿@model HomeViewModel
+
+ 
+<ul>
+    @foreach(var item in Model.Students)
+            {
+                <li>@item.Id</li>
+                <li>@item.Name</li>
+                <li>@item.Surname</li>
+                <li>@item.Age</li>
+            }
+</ul>
+
+<h2>@Model.Product.Name</h2>
+
+@foreach (var item in Model.Counts)
+{
+    <span>@item</span>
+}

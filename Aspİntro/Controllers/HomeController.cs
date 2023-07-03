@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Aspİntro.Data;
 using Aspİntro.Models;
+using Aspİntro.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aspİntro.Controllers
 {
@@ -20,8 +22,16 @@ namespace Aspİntro.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Slider> sliders = _context.Sliders.ToList(); 
-            return View(sliders);
+            List<Slider> sliders = await _context.Sliders.ToListAsync();
+            SliderDetail detail = await _context.SliderDetails.FirstOrDefaultAsync();
+            List<Post> posts = await _context.Posts.Include(x=>x.Images).ToListAsync();
+            HomeVM homeVM = new HomeVM
+            {
+                Sliders = sliders,
+                Detail = detail,
+                Posts  = posts
+            };
+            return View(homeVM);
         }
     }
 }

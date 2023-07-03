@@ -3,14 +3,16 @@ using Aspİntro.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Aspİntro.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230703102423_CreatedCategoryPostImageTable")]
+    partial class CreatedCategoryPostImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +64,7 @@ namespace Aspİntro.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Aspİntro.Models.PostImage", b =>
+            modelBuilder.Entity("Aspİntro.Models.ProductImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,9 +77,6 @@ namespace Aspİntro.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("bit");
-
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
@@ -85,7 +84,7 @@ namespace Aspİntro.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostImages");
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("Aspİntro.Models.Slider", b =>
@@ -135,7 +134,7 @@ namespace Aspİntro.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Aspİntro.Models.PostImage", b =>
+            modelBuilder.Entity("Aspİntro.Models.ProductImage", b =>
                 {
                     b.HasOne("Aspİntro.Models.Post", "Post")
                         .WithMany("Images")

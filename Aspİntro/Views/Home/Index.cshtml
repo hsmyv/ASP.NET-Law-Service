@@ -1,4 +1,4 @@
-﻿@model List<Slider>
+﻿@model HomeVM
 
 <!-- Carousel Start -->
 <div class="carousel">
@@ -9,10 +9,8 @@
                     <img src="~img/carousel-1.jpg" alt="Image">
                 </div>
                 <div class="carousel-text">
-                    <h1>Fastest Way to Achieve Success</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac consequat at lectus in malesuada
-                    </p>
+                    <h1>@Model.Detail.Header</h1>
+                    <p>@Model.Detail.Description</p>
                     <div class="carousel-btn">
                         <a class="btn" href=""><i class="fa fa-link"></i>Get Started</a>
                         <a class="btn btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal"><i class="fa fa-play"></i>Watch Video</a>
@@ -76,13 +74,13 @@
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-6">
                 <div class="fact-item">
-                    <img src="~img/icon-4.png" alt="Icon">
+                    <img src="~/img/icon-4.png" alt="Icon">
                     <h2>Qualified Team</h2>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="fact-item">
-                    <img src="~img/icon-1.png" alt="Icon">
+                    <img src="~/img/icon-1.png" alt="Icon">
                     <h2>Individual Approach</h2>
                 </div>
             </div>
@@ -94,7 +92,7 @@
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="fact-item">
-                    <img src="~img/icon-6.png" alt="Icon">
+                    <img src="~/img/icon-6.png" alt="Icon">
                     <h2>100% Satisfaction</h2>
                 </div>
             </div>
@@ -478,66 +476,30 @@
             <h2>Latest From Our Consulting Blog</h2>
         </div>
         <div class="owl-carousel blog-carousel">
-            <div class="blog-item">
-                <div class="blog-img">
-                    <img src="~img/blog-1.jpg" alt="Blog">
-                </div>
-                <div class="blog-content">
-                    <h2 class="blog-title">Lorem ipsum dolor sit amet</h2>
-                    <div class="blog-meta">
-                        <i class="fa fa-list-alt"></i>
-                        <a href="">Category</a>
-                        <i class="fa fa-calendar-alt"></i>
-                        <p>01-Jan-2045</p>
+            @foreach (var post in Model.Posts)
+            {
+                <div class="blog-item">
+                    <div class="blog-img">
+                        <img src="~/img/@post.Images.FirstOrDefault(x=>x.IsMain).Image" alt="Blog">
                     </div>
-                    <div class="blog-text">
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                        </p>
-                        <a class="btn" href="">Read More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="blog-item">
-                <div class="blog-img">
-                    <img src="~img/blog-2.jpg" alt="Blog">
-                </div>
-                <div class="blog-content">
-                    <h2 class="blog-title">Lorem ipsum dolor sit amet</h2>
-                    <div class="blog-meta">
-                        <i class="fa fa-list-alt"></i>
-                        <a href="">Category</a>
-                        <i class="fa fa-calendar-alt"></i>
-                        <p>01-Jan-2045</p>
-                    </div>
-                    <div class="blog-text">
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                        </p>
-                        <a class="btn" href="">Read More</a>
+                    <div class="blog-content">
+                        <h2 class="blog-title">@post.Title</h2>
+                        <div class="blog-meta">
+                            <i class="fa fa-list-alt"></i>
+                            <a href="">Category</a>
+                            <i class="fa fa-calendar-alt"></i>
+                            <p>01-Jan-2045</p>
+                        </div>
+                        <div class="blog-text">
+                            <p>
+                                @post.Description
+                            </p>
+                            <a class="btn" href="">Read More</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="blog-item">
-                <div class="blog-img">
-                    <img src="~img/blog-3.jpg" alt="Blog">
-                </div>
-                <div class="blog-content">
-                    <h2 class="blog-title">Lorem ipsum dolor sit amet</h2>
-                    <div class="blog-meta">
-                        <i class="fa fa-list-alt"></i>
-                        <a href="">Category</a>
-                        <i class="fa fa-calendar-alt"></i>
-                        <p>01-Jan-2045</p>
-                    </div>
-                    <div class="blog-text">
-                        <p>
-                            Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor. Lorem ipsum dolor sit amet elit. Neca pretim miura bitur facili ornare velit non vulpte liqum metus tortor
-                        </p>
-                        <a class="btn" href="">Read More</a>
-                    </div>
-                </div>
-            </div>
+            }
+
         </div>
     </div>
 </div>

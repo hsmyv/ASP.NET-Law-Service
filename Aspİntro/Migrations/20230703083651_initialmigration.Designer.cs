@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aspİntro.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230701130622_CreateSliderTable")]
-    partial class CreateSliderTable
+    [Migration("20230703083651_initialmigration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,27 @@ namespace Aspİntro.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sliders");
+                });
+
+            modelBuilder.Entity("Aspİntro.Models.SliderDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Header")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SliderDetails");
                 });
 #pragma warning restore 612, 618
         }

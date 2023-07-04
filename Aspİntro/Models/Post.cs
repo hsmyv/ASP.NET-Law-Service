@@ -12,7 +12,8 @@ namespace Aspİntro.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public int View { get; set; }
-        public int CategoryId { get; set; }
+        public int CategoryId { get; set;}
+        public bool IsDeleted { get; set; }
         public Category Category { get; set; }
         public ICollection<PostImage> Images { get; set; }
     }

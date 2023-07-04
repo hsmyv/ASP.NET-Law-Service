@@ -24,14 +24,14 @@ namespace Aspİntro.Controllers
         {
             List<Slider> sliders = await _context.Sliders.ToListAsync();
             SliderDetail detail = await _context.SliderDetails.FirstOrDefaultAsync();
-            List<Post> posts = await _context.Posts.Include(x=>x.Images).ToListAsync();
+            List<Post> posts = await _context.Posts.Include(x=>x.Images).Include(x=>x.Category).ToListAsync();
             HomeVM homeVM = new HomeVM
             {
                 Sliders = sliders,
                 Detail = detail,
                 Posts  = posts
             };
-            return View(homeVM);
+            return View(homeVM); 
         }
     }
 }

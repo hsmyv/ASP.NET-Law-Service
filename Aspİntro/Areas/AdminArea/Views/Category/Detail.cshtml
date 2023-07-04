@@ -1,0 +1,14 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container">
+    <h4>Category</h4>
+    <p>@Model.Name</p>
+    <div>
+        <a asp-action="Index" class="btn btn-primary">Go Back</a>
+    </div>
+</div>

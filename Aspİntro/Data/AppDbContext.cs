@@ -19,6 +19,18 @@ namespace Aspİntro.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<PostImage> PostImages{ get; set; }
+        public DbSet<Setting> Settings { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Setting>().HasData(
+                new Setting
+                { 
+                    Id = 1,
+                    HomePostTake = 6,
+                    LoadTake =   2,
+                }
+            );
+        }
 
     }
 }

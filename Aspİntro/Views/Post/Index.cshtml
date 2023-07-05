@@ -1,0 +1,25 @@
+﻿@Model List<Post>
+@{
+    ViewData["Title"] = "Posts";
+}
+
+<!-- Blog Start -->
+<div class="blog blog-page mt-125">
+    <div class="container">
+        <input type="hidden" name="name" id="post-count" value="@ViewBag.PostCount" />
+
+        <div class="section-header">
+            <p>Consulting Blog</p>
+            <h2>Latest From Our Consulting Blog</h2>
+        </div>
+        <div class="row" id="parent">
+            <partial name="_PostsPartial" />
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button id="show-more" class="btn btn-outline-primary">Show More</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog End -->

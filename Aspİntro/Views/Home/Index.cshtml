@@ -490,16 +490,15 @@
                             <i class="fa fa-calendar-alt"></i>
                             <p>01-Jan-2045</p>
                         </div> 
-                        <div class="blog-text">
+                        <div class="blog-tex t">
                             <p>
                                 @post.Description
                             </p>
-                            <a class="btn" href="">Read More</a>
+                            <a asp-controller="Post" asp-action="AddBasket" asp-route-id="@post.Id" class="btn" href="">Read More</a>
                         </div>
                     </div>
                 </div>
             }
-
         </div>
     </div>
 </div>

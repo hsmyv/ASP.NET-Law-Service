@@ -42,6 +42,28 @@
         $(window).resize(toggleNavbarMethod);
     });
 
+    $(document).ready(function () {
+        $(document).on("click", "#show-more", function () {
+            let parent = $("#parent");
+            let count = $("#parent").children().length
+            let postCountDb = $("#post-count").val()
+            $.ajax({
+                url: "/Post/LoadMore",
+                data: {
+                    skip:count
+                },
+                type: "GET",
+                success: function (res) {
+                    $(parent).append(res);
+                    count = $("#parent").children().length;
+                    if (count == postCountDb) {
+                        $("#show-more").remove();
+                    }
+                }
+            })
+        });
+    });
+
     
     // Main carousel
     $(".carousel .owl-carousel").owlCarousel({
@@ -136,6 +158,7 @@
             }
         }
     });
+
     
 })(jQuery);
 

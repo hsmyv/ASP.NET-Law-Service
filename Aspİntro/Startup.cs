@@ -24,6 +24,10 @@ namespace Aspİntro
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromSeconds(10);
+            });
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
             {
@@ -41,6 +45,7 @@ namespace Aspİntro
             }
 
             app.UseRouting();
+            app.UseSession();
             app.UseStaticFiles();
  
             app.UseEndpoints(endpoints =>
@@ -49,6 +54,7 @@ namespace Aspİntro
                   name: "areas",
                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
+             
                 endpoints.MapDefaultControllerRoute();
             });
         }

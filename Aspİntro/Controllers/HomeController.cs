@@ -23,7 +23,8 @@ namespace Aspİntro.Controllers
 
         public async Task<IActionResult> Index()
         {
-            HttpContext.Session.SetString("name", "Hasan");
+            //HttpContext.Session.SetString("name", "Hasan");
+
             List<Slider> sliders = await _context.Sliders.ToListAsync();
             SliderDetail detail = await _context.SliderDetails.FirstOrDefaultAsync();
             List<Post> posts = await _context.Posts.Include(x=>x.Images).Include(x=>x.Category).ToListAsync();

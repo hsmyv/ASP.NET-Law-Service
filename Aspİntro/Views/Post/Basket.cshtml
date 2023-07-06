@@ -1,0 +1,56 @@
+﻿@model List<BasketDetailVM>
+@{
+    ViewData["Title"] = "Basket";
+    int count = 1;
+}
+
+
+<div class="container">
+    <div class="header d-flex">
+        <h1>Categories</h1>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+             
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> Title </th>
+                            <th> Description </th>
+                            <th> Image</th>
+                            <th> Count </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var post in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @count
+                                </td>
+                                <td>
+                                    @post.Title
+                                </td>
+                                <td>
+                                    @post.Description
+                                </td>
+                                <td>
+                                    <img src="~/img/@post.Image"/>
+                                </td>
+                                <td>
+                                    @post.Count
+                                </td>
+                            </tr>
+                            count++;
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

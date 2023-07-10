@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Aspİntro.Data;
+using Aspİntro.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +34,7 @@ namespace Aspİntro
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<LayoutService>();
             
         }
 
@@ -47,6 +49,7 @@ namespace Aspİntro
             app.UseRouting();
             app.UseSession();
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
  
             app.UseEndpoints(endpoints =>
             {

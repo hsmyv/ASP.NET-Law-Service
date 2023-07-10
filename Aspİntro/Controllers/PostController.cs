@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Aspİntro.Data;
 using Aspİntro.Models;
+using Aspİntro.Services;
 using Aspİntro.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,18 +15,23 @@ namespace Aspİntro.Controllers
     public class PostController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly LayoutService _layoutService;
 
-        public PostController(AppDbContext context)
+
+        public PostController(AppDbContext context, LayoutService layoutService)
         {
             _context = context;
+            _layoutService = layoutService;
         }
 
         public async Task<IActionResult> Index()
         {
+            Dictionary<string, string> settings = _layoutService.GetSettings();
+            int take = int.Parse(settings["HomeTake"]);
             ViewBag.PostCount = _context.Posts.Where(p => p.IsDeleted == false).Count();
             List<Post> post = await _context.Posts.Where(x => x.IsDeleted == false)
                 .OrderByDescending(m=> m.Id)
-                .Take(2)
+                .Take(take)
                 .ToListAsync();  
             return View(post);
         }

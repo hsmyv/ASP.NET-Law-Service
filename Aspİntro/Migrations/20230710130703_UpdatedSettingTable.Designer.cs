@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aspİntro.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230707134815_UpdatedSettingTable")]
+    [Migration("20230710130703_UpdatedSettingTable")]
     partial class UpdatedSettingTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,11 +100,11 @@ namespace Aspİntro.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("Key")
-                        .HasColumnType("int");
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

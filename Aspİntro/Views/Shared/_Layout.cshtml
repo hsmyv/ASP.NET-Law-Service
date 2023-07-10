@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Aspİntro.Services
+@inject LayoutService _layoutService;
+
+@{ 
+    Dictionary<string, string> settings = _layoutService.GetSettings();
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -37,7 +43,7 @@
                         </div>
                         <div class="text">
                             <i class="fa fa-phone-alt"></i>
-                            <h2>+123 456 7890</h2>
+                            <h2>@settings["Phone"]</h2>
                             <p>For Appointment</p>
                         </div>
                     </div>

@@ -17,7 +17,8 @@ namespace Aspİntro.Services
         
         public Dictionary<string, string> GetSettings()
         {
-            return _context.Settings.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+            Dictionary<string, string> settings  = _context.Settings.AsEnumerable().ToDictionary(m => m.Key, m => m.Value);
+            return settings;
         }
     }
 }

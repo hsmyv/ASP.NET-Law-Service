@@ -20,9 +20,9 @@ namespace Aspİntro.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<PostImage> PostImages{ get; set; }
         public DbSet<Setting> Settings { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
-          
+            modelBuilder.Entity<Post>().HasQueryFilter(m => !m.IsDeleted);
         }
 
     }

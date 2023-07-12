@@ -16,12 +16,13 @@ namespace Aspİntro.Controllers
     {
         private readonly AppDbContext _context;
         private readonly LayoutService _layoutService;
+        private readonly ProductService _productService;
 
-
-        public PostController(AppDbContext context, LayoutService layoutService)
+        public PostController(AppDbContext context, LayoutService layoutService, ProductService productService)
         {
             _context = context;
             _layoutService = layoutService;
+            _productService = productService;
         }
 
         public async Task<IActionResult> Index()
@@ -29,11 +30,9 @@ namespace Aspİntro.Controllers
             Dictionary<string, string> settings = _layoutService.GetSettings();
             int take = int.Parse(settings["HomeTake"]);
             ViewBag.PostCount = _context.Posts.Where(p => p.IsDeleted == false).Count();
-            List<Post> post = await _context.Posts.Where(x => x.IsDeleted == false)
-                .OrderByDescending(m=> m.Id)
-                .Take(take)
-                .ToListAsync();  
-            return View(post);
+            IEnumerable<Post> posts = await _productService.GetPosts(take);
+
+            return View(posts);
         }
 
         public IActionResult LoadMore(int skip)

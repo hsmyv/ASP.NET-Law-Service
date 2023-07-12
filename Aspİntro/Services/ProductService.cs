@@ -19,11 +19,20 @@ namespace Aspİntro.Services
 
         public async Task<IEnumerable<Post>> GetPosts(int take )
         {
-            IEnumerable<Post> posts = await _context.Posts.Where(x => x.IsDeleted == false)
-                .OrderByDescending(m => m.Id)
-                .Take(take)
-                .ToListAsync();
-            return posts;
+            try
+            {
+                IEnumerable<Post> posts = await _context.Posts.Where(x => x.IsDeleted == false)
+               .OrderByDescending(m => m.Id)
+               .Take(take)
+               .ToListAsync();
+                return posts;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

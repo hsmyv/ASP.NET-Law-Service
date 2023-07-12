@@ -29,6 +29,16 @@ namespace Aspİntro.Areas.AdminArea.Controllers
             var category = _context.Categories.FirstOrDefault(m => m.Id == id);
             return View(category);
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Category category)
+        {
+            return View();
+        }
         public IActionResult Edit(int id)
         {
             return Json(new

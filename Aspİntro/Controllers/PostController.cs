@@ -6,6 +6,7 @@ using Aspİntro.Data;
 using Aspİntro.Models;
 using Aspİntro.Services;
 using Aspİntro.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -78,7 +79,7 @@ namespace Aspİntro.Controllers
             {
                 existPost.Count++;
             }
-            Response.Cookies.Append("basket", JsonConvert.SerializeObject(basket));
+            Response.Cookies.Append("basket", JsonConvert.SerializeObject(basket), new CookieOptions { MaxAge = TimeSpan.FromMinutes(1)});
 
 
         }

@@ -35,17 +35,34 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Category category)
+        public async Task<IActionResult> Create(Category category)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View();  
+            }
+            bool isExist = _context.Categories.Any(m => m.Name.ToLower().Trim() == category.Name.ToLower().Trim());
+            if (isExist)
+            {
+                ModelState.AddModelError("Name", "This category already existed!");
+                return View();
+            }
+            await _context.Categories.AddAsync(category);
+            await  _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Edit(int id)
+        {
+            Category category = await _context.Categories.Where(m => !m.IsDeleted && m.Id == id).FirstOrDefaultAsync();
+            if (category == null) return NotFound();
+
+            return View(category);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Category category)
         {
             return View();
-        }
-        public IActionResult Edit(int id)
-        {
-            return Json(new
-            {
-                action = "Edit",
-                Id = id
-            });
         }
         public IActionResult Delete(int id)
         {

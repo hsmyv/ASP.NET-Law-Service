@@ -286,6 +286,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" asp-area="AdminArea" asp-controller="Slider" asp-action="Index">
+                            <span class="icon-bg"><i class="mdi mdi-chart-bar menu-icon"></i></span>
+                            <span class="menu-title">Slider</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="pages/tables/basic-table.html">
                             <span class="icon-bg"><i class="mdi mdi-table-large menu-icon"></i></span>
                             <span class="menu-title">Tables</span>
@@ -379,5 +385,7 @@
     <!-- Custom js for this page -->
     <script src="~/admin/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
+    @RenderSection("Scripts", false)
+
 </body>
 </html>

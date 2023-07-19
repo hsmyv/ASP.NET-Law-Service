@@ -1,0 +1,63 @@
+﻿@model List<Slider>
+@{
+    ViewData["Title"] = "Slider";
+    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    int count = 1;
+}o
+
+
+<div class="container">
+    <div class="header d-flex">
+        <h1>Categories</h1>
+        <a class="btn btn-success btn-sm" asp-action="Create">Create Category</a>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Striped Table</h4>
+                <p class="card-description">
+                    Add class <code>.table-striped</code>
+                </p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> Number </th>
+                            <th> Image </th>
+                            <th> Image </th>
+                            <th> Implement </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var slider in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @count
+                                </td>
+                                <td class="py-1">
+                                    <img src="~/img/@slider.Image" width="200" height="150" alt="image" />
+                                </td>
+                             
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" asp-action="Detail" asp-route-id="@slider.Id">Detail</a>
+                                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@slider.Id">Edit</a>
+                                    <form style="display:inline-block" method="post" asp-action="Delete" asp-route-id="@slider.Id">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                                <td> May 15, 2015 </td>
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

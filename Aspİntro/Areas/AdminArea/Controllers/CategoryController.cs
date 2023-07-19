@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Aspİntro.Data;
+using Aspİntro.Exceptions;
 using Aspİntro.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<Category> categories = await _context.Categories.Where(m => m.IsDeleted == false).ToListAsync();
+            List<Category> categories = await _context.Categories.AsNoTracking().ToListAsync();
             return View(categories); 
         }
 
@@ -41,7 +42,7 @@ namespace Aspİntro.Areas.AdminArea.Controllers
             {
                 return View();  
             }
-            bool isExist = _context.Categories.Any(m => m.Name.ToLower().Trim() == category.Name.ToLower().Trim());
+            bool isExist = _context.Categories.Where(m=>!m.IsDeleted).Any(m => m.Name.ToLower().Trim() == category.Name.ToLower().Trim());
             if (isExist)
             {
                 ModelState.AddModelError("Name", "This category already existed!");
@@ -60,17 +61,48 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Category category)
+        public async Task<IActionResult> Edit(int id, Category category)
         {
-            return View();
-        }
-        public IActionResult Delete(int id)
-        {
-            return Json(new
+            if (id != category.Id) return BadRequest();
+
+            try
             {
-                action = "Delete",
-                Id = id
-            });
+              Category dbCategory = await _context.Categories.AsNoTracking().Where(m => !m.IsDeleted && m.Id == id).FirstOrDefaultAsync();
+                        if (dbCategory.Name.ToLower().Trim() == category.Name.ToLower().Trim())
+                        {
+                            return RedirectToAction(nameof(Index));
+                        }
+                        bool isExist = _context.Categories.Any(m => m.Name.ToLower().Trim() == category.Name.ToLower().Trim());
+                        if (isExist)
+                        {
+                            ModelState.AddModelError("Name", "This category already existed!");
+                            return View();
+                        }
+            }
+            catch(DbUpdateException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View();
+            }
+          
+
+            //dbCategory.Name = category.Name;
+            _context.Categories.Update(category);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }  
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            Category category = await _context.Categories.Where(m => !m.IsDeleted && m.Id == id).FirstOrDefaultAsync();
+            if (category == null) return NotFound();
+            //_context.Categories.Remove(category);
+            category.IsDeleted = true;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

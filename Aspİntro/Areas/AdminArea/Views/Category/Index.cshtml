@@ -37,7 +37,11 @@
                             <td class="py-1">
                                 <img src="../../assets/images/faces-clipart/pic-1.png" alt="image" />
                             </td>
-                            <td> @cate.Name</td>
+                            <td>
+                                <span class="@(cate.IsDeleted == false ? "text-success" : "text-danger")">
+                                    @cate.Name
+                                </span>
+                            </td>
                             <td>
                                 <div class="progress">
                                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -46,7 +50,9 @@
                             <td>
                                 <a class="btn btn-primary" asp-action="Detail" asp-route-id="@cate.Id">Detail</a>
                                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@cate.Id">Edit</a>
-                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@cate.Id">Delete</a>
+                                <form style="display:inline-block" method="post" asp-action="Delete" asp-route-id="@cate.Id">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </td>
                             <td> May 15, 2015 </td>
                         </tr>

@@ -97,10 +97,14 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
-            Category category = await _context.Categories.Where(m => !m.IsDeleted && m.Id == id).FirstOrDefaultAsync();
+            Category category = await _context.Categories.Include(m=>m.Posts).Where(m => !m.IsDeleted && m.Id == id).FirstOrDefaultAsync();
             if (category == null) return NotFound();
             //_context.Categories.Remove(category);
             category.IsDeleted = true;
+            foreach(var post in category.Posts)
+            {
+                post.IsDeleted = true;
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

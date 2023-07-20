@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Aspİntro.Data;
 using Aspİntro.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aspİntro.Areas.AdminArea.Controllers
@@ -22,6 +23,18 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         {
             List<Slider> sliders = await _context.Sliders.AsNoTracking().ToListAsync();
             return View(sliders);
+        }
+
+        public IActionResult Create()
+        {
+            return View(); 
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Slider slider)
+        {
+            if (ModelState["Photo"].ValidationState == ModelValidationState.Invalid) return View();
+            return View();
         }
     }
 }

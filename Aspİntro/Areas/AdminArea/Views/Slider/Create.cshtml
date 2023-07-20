@@ -12,12 +12,11 @@
                 <div class="card-body">
                     <h4 class="card-title">Default form</h4>
                     <p class="card-description"> Basic form layout </p>
-                    <div asp-validation-summary="All"></div>
                     <form class="forms-sample" method="post" asp-action="Create">
                         <div class="form-group">
-                            <label asp-for="Photo">Category</label>
-                            <input class="form-control" placeholder="category" asp-for="Photo">
-                            <span class="text-danger" asp-validation-for="Photo"></span>
+                            <label asp-for="Name">Slider</label>
+                            <input type="text" class="form-control" id="category" placeholder="category" asp-for="Name">
+                            <span class="text-danger" asp-validation-for="Name"></span>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <button asp-action="index" class="btn btn-light">Cancel</button>
@@ -26,8 +25,4 @@
             </div>
         </div>
     </div>
-</div> 
-
-@section Scripts{
-    <partial name="_ValidationPartial"/>
-}
+</div>

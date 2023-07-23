@@ -6,13 +6,16 @@
 }
 
 <div class="container">
+    <div class="img">
+        <img src="~/img/@Model.Image" alt="slider" style="width:250px; height:250px"/> 
+    </div>
     <div class="row">
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Default form</h4>
                     <p class="card-description"> Basic form layout </p>
-                    <form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
+                    <form class="forms-sample" method="post" asp-action="Edit" enctype="multipart/form-data">
                         <div class="form-group">
                             <label asp-for="Photo">Slider</label>
                             <input type="file" class="form-control" id="photo" placeholder="category" asp-for="Photo">

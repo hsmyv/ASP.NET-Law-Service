@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Aspİntro.Utilities.File;
+using Aspİntro.ViewModels.Admin;
 
 namespace Aspİntro.Areas.AdminArea.Controllers
 {
@@ -36,30 +37,63 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Slider slider)
+        public async Task<IActionResult> Create(SliderVM sliderVM)
         {
+            #region for single file
+            //if (ModelState["Photo"].ValidationState == ModelValidationState.Invalid) return View();
+            //if (!slider.Photo.CheckFileType("image/"))
+            //{
+            //    ModelState.AddModelError("Photo", "Image type is wrong");
+            //    return View();
+            //}
+            //if (!slider.Photo.CheckFileSize(200))
+            //{
+            //    ModelState.AddModelError("Photo", "Image size is big than 100");
+            //    return View();
+            //}
+            //string fileName = Guid.NewGuid().ToString() + "_" + slider.Photo.FileName;
+            //string path = Helpers.GetFilePath(_env.WebRootPath, "img", fileName);
+
+            //using (FileStream stream = new FileStream(path, FileMode.Create))
+            //{
+            //    await slider.Photo.CopyToAsync(stream);
+            //}
+
+            //slider.Image = fileName;
+            //await _context.Sliders.AddAsync(slider);
+            //await _context.SaveChangesAsync();
+            #endregion
             if (ModelState["Photo"].ValidationState == ModelValidationState.Invalid) return View();
-            if (!slider.Photo.CheckFileType("image/"))
+            foreach (var photo in sliderVM.Photos)
             {
-                ModelState.AddModelError("Photo", "Image type is wrong");
-                return View();
+                if (!photo.CheckFileType("image/"))
+                {
+                    ModelState.AddModelError("Photo", "Image type is wrong");
+                    return View();
+                }
+                if (!photo.CheckFileSize(200))
+                {
+                    ModelState.AddModelError("Photo", "Image size is big than 100");
+                    return View();
+                }
             }
-            if (!slider.Photo.CheckFileSize(200))
+            foreach (var photo in sliderVM.Photos)
             {
-                ModelState.AddModelError("Photo", "Image size is big than 100");
-                return View();
-            }
-            string fileName = Guid.NewGuid().ToString() + "_" + slider.Photo.FileName;
-            string path = Helpers.GetFilePath(_env.WebRootPath, "img", fileName);
+                string fileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                string path = Helpers.GetFilePath(_env.WebRootPath, "img", fileName);
 
-            using (FileStream stream = new FileStream(path, FileMode.Create))
-            {
-                await slider.Photo.CopyToAsync(stream);
-            }
+                using (FileStream stream = new FileStream(path, FileMode.Create))
+                {
+                    await photo.CopyToAsync(stream);
+                }
 
-            slider.Image = fileName;
-            await _context.Sliders.AddAsync(slider);
-            await _context.SaveChangesAsync();
+                Slider slider = new Slider
+                {
+                    Image = fileName
+                };
+                await _context.Sliders.AddAsync(slider);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 
@@ -83,6 +117,12 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         }
         
         public async Task<IActionResult> Edit(int id)
+        {
+            var slider = await GetSliderById(id);
+            if (slider is null) return NotFound();
+            return View(slider);
+        }
+        public async Task<IActionResult> Detail(int id)
         {
             var slider = await GetSliderById(id);
             if (slider is null) return NotFound();

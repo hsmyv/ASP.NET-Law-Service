@@ -1,4 +1,4 @@
-﻿@model Slider
+﻿@model SliderVM
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
@@ -14,9 +14,9 @@
                     <p class="card-description"> Basic form layout </p>
                     <form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label asp-for="Photo">Slider</label>
-                            <input type="file" class="form-control" id="photo" placeholder="category" asp-for="Photo">
-                            <span class="text-danger" asp-validation-for="Photo"></span>
+                            <label asp-for="Photos">Slider</label>
+                            <input type="file" class="form-control" id="photo" asp-for="Photos">
+                            <span class="text-danger" asp-validation-for="Photos"></span>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <button asp-action="index" class="btn btn-light">Cancel</button>

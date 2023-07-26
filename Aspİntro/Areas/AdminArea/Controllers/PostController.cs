@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Aspİntro.Data;
 using Aspİntro.Models;
+using Aspİntro.Utilities.Pagination;
 using Aspİntro.ViewModels.Admin;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aspİntro.Areas.AdminArea.Controllers
@@ -19,16 +21,27 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page  = 1, int take = 10)
         {
             var posts = await _context.Posts
                 .Include(m => m.Category)
                 .Include(m => m.Images)
+                .Skip((page - 1)*take)
+                .Take(take)
                 .AsNoTracking()
                 .OrderByDescending(m => m.Id)
                 .ToListAsync();
-            var result = GetMapDatas(posts);
-            return View();
+            var postsVM = GetMapDatas(posts);
+            int count = await GetPageCount(take);
+
+            Paginate<PostListVM> result = new Paginate<PostListVM>(postsVM, page, count);
+            return View(result);
+        }
+
+        private async Task<int> GetPageCount(int take)
+        {
+            var count = await _context.Posts.CountAsync();
+            return (int)Math.Ceiling((decimal)count / take);
         }
 
         private List<PostListVM> GetMapDatas(List<Post> posts)
@@ -44,9 +57,16 @@ namespace Aspİntro.Areas.AdminArea.Controllers
                     CategoryName = post.Category.Name
                 };
 
-                PostListVM.Add(newPost);
+                postList.Add(newPost);
             }
             return postList;
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            var categories = await _context.Categories.Where(m=> !m.IsDeleted).ToListAsync();
+            ViewBag.categories = new SelectList(categories, "id", "name");
+            return View();
         }
     }
 }

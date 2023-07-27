@@ -9,7 +9,7 @@ namespace Aspİntro.Models
     {
         public string Image { get; set; }
         public int PostId { get; set; }
-        public bool IsMain { get; set; } = false;
+        public bool IsMain { get; set; }
         public Post Post { get; set; }
     }
 }

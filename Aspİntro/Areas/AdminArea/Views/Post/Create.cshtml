@@ -1,7 +1,7 @@
 ﻿@model PostCreateVM
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    //Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="container">
@@ -15,17 +15,16 @@
                         <div class="form-group">
 
                             <label asp-for="Title">Title:</label>
-                            <input type="file" class="form-control" id="title" asp-for="Title">
-                            <span class="text-danger" asp-validation-for="Title"></span>
+                            <input class="form-control" placeholder="title" asp-for="Title">
                             <label asp-for="Description">Description:</label>
-                            <input type="file" class="form-control" id="description" asp-for="Description">
+                            <input class="form-control" placeholder="description" asp-for="Description">
                             <span class="text-danger" asp-validation-for="Description"></span>
                             <label asp-for="CategoryId">Categories:</label>
                             <select class="form-control" style="width:300px" asp-for="CategoryId" asp-items="@ViewBag.categories">
                             </select>
                             <span class="text-danger" asp-validation-for="Photos"></span>
                             <label asp-for="Photos">Photo:</label>
-                            <input type="file" class="form-control" id="photo" asp-for="Photos">
+                            <input type="file" class="form33-control" id="photo" asp-for="Photos">
                             <span class="text-danger" asp-validation-for="Photos"></span>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
@@ -36,3 +35,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts{ 
+    <partial name="_ValidationPartial"/>
+}

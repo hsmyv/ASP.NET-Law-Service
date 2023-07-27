@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -16,6 +17,14 @@ namespace Aspİntro.Utilities.File
         public static bool CheckFileSize(this IFormFile file, long size)
         {
             return file.Length / 1024 < size;
+        }
+
+        public async static Task SaveFile(this IFormFile file, string path)
+        {
+            using (FileStream stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
         }
     }
 }

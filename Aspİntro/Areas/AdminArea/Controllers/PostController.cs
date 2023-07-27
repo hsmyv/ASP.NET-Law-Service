@@ -132,6 +132,60 @@ namespace Aspİntro.Areas.AdminArea.Controllers
             
 
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            ViewBag.categories = await GetCategoriesByPost();
+
+            Post post = await _context.Posts.Include(m => m.Images).Include(m=>m.Category).Where(m => !m.IsDeleted && m.Id == id).FirstOrDefaultAsync();
+            if (post is null) return NotFound();
+
+            PostUpdateVM result = new PostUpdateVM
+            {
+                Title = post.Title,
+                Description = post.Description,
+                CategoryId = post.CategoryId,
+                Images = post.Images
+            };            
+            return View(result);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, PostUpdateVM postUpdateVM)
+        {
+            ViewBag.categories = await GetCategoriesByPost();
+            if (!ModelState.IsValid) return View(postUpdateVM);
+            Post post = await _context.Posts.Include(m => m.Images).Include(m => m.Category).Where(m => !m.IsDeleted && m.Id == id).FirstOrDefaultAsync();
+            if (post is null) return NotFound();
+            List<PostImage> imagelist = new List<PostImage>();
+
+            if(postUpdateVM.Photos != null)
+            {
+                foreach (var item in post.Images)
+                {
+                    string path = Helpers.GetFilePath(_env.WebRootPath, "img", item.Image);
+                    Helpers.DeleteFile(path);
+                    item.IsDeleted = true;
+                }
+                foreach (var photo in postUpdateVM.Photos)
+                {
+                    string fileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                    string path = Helpers.GetFilePath(_env.WebRootPath, "img", fileName);
+
+                    await photo.SaveFile(path);
+
+                    PostImage postImage = new PostImage
+                    {
+                        Image = fileName
+                    };
+                    imagelist.Add(postImage);
+                }
+
+                imagelist.FirstOrDefault().IsMain = true;
+
+            }
+
+        }
         public async Task<SelectList> GetCategoriesByPost()
         {
             var categories = await _context.Categories.Where(m=> !m.IsDeleted).ToListAsync();

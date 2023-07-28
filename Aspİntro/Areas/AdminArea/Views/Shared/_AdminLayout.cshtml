@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="~/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.20/sweetalert2.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.20/sweetalert2.min.css" rel="stylesheet" />
+    <link href="
+        https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.min.css
+        " rel="stylesheet">
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="~/admin/assets/css/style.css">
@@ -372,7 +377,7 @@
             </nav>
             @RenderBody()
             <!-- main-panel ends -->
-        </div> 
+        </div>
         <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
@@ -392,6 +397,14 @@
     <script src="~/admin/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
     @RenderSection("Scripts", false)
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.20/sweetalert2.min.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.20/sweetalert2.all.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.20/sweetalert2.all.min.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.20/sweetalert2.js" asp-append-version="true"></script>
+
+
+    <script src="~/admin/assets/js/main.js"></script>
 
 </body>
 </html>

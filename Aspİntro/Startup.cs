@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Aspİntro.Data;
+using Aspİntro.Models;
 using Aspİntro.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +30,18 @@ namespace Aspİntro
             services.AddSession(option =>
             {
                 option.IdleTimeout = TimeSpan.FromSeconds(10);
+            });
+
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 8;
+
+                options.User.RequireUniqueEmail = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                options.Lockout.AllowedForNewUsers = true;
+
             });
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>

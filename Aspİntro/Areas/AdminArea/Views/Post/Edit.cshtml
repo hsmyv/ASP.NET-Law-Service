@@ -7,9 +7,19 @@
 <div class="container">
     <div class="row">
         <div class="images">
+            <input type="hidden" class="post-id" value="@Model.Id" />
             @foreach (var item in Model.Images)
             {
-            <img src="~/img/@item.Image" alt="Post image" style="width:100px; height:100px" />
+                <img src="~/img/@item.Image" alt="Post image" style="width:100px; height:100px" />
+
+                if (item.IsMain)
+                {
+                    <button class="btn btn-danger" disabled>Default</button>
+                }
+                else
+                {
+                    <button class="btn btn-success set-default" data-id="@item.Id">Set Default</button>
+                }
             }
 
         </div>
@@ -31,7 +41,7 @@
                             </select>
                             <span class="text-danger" asp-validation-for="Photos"></span>
                             <label asp-for="Photos">Photo:</label>
-                            <input type="file" class="form33-control" id="photo" asp-for="Photos">
+                            <input type="file" class="form33-control" id="photo" asp-for="Photos" multiple>
                             <span class="text-danger" asp-validation-for="Photos"></span>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>

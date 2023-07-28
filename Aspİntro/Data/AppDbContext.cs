@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Aspİntro.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aspİntro.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext:IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
         {
@@ -20,10 +21,10 @@ namespace Aspİntro.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<PostImage> PostImages{ get; set; }
         public DbSet<Setting> Settings { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder) 
-        {
-            modelBuilder.Entity<Post>().HasQueryFilter(m => !m.IsDeleted);
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        //{
+        //    //modelBuilder.Entity<Post>().HasQueryFilter(m => !m.IsDeleted);
+        //}
 
     }
 }

@@ -142,6 +142,7 @@ namespace Aspİntro.Areas.AdminArea.Controllers
 
             PostUpdateVM result = new PostUpdateVM
             {
+                Id = post.Id,
                 Title = post.Title,
                 Description = post.Description,
                 CategoryId = post.CategoryId,
@@ -157,7 +158,7 @@ namespace Aspİntro.Areas.AdminArea.Controllers
             if (!ModelState.IsValid) return View(postUpdateVM);
             Post post = await _context.Posts.Include(m => m.Images).Include(m => m.Category).Where(m => !m.IsDeleted && m.Id == id).FirstOrDefaultAsync();
             if (post is null) return NotFound();
-            List<PostImage> imagelist = new List<PostImage>();
+            List<PostImage> imageList = new List<PostImage>();
 
             if(postUpdateVM.Photos != null)
             {
@@ -178,13 +179,42 @@ namespace Aspİntro.Areas.AdminArea.Controllers
                     {
                         Image = fileName
                     };
-                    imagelist.Add(postImage);
+                    imageList.Add(postImage);
                 }
 
-                imagelist.FirstOrDefault().IsMain = true;
+                imageList.FirstOrDefault().IsMain = true;
+                post.Images = imageList;
 
             }
 
+            post.Title = postUpdateVM.Title;
+            post.Description = postUpdateVM.Description;
+            post.CategoryId = postUpdateVM.CategoryId;
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetDefaultImage(DefaultImageVM model)
+        {
+            List<PostImage> postImages = await _context.PostImages.Where(m => m.PostId == model.PostId).ToListAsync();
+            foreach (var image in postImages)
+            {
+
+                if(image.Id == model.ImageId)
+                {
+                    image.IsMain = true;
+                }
+                 else
+                {
+                    image.IsMain = false;
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok(postImages);
         }
         public async Task<SelectList> GetCategoriesByPost()
         {

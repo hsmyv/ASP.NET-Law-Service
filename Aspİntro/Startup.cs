@@ -66,7 +66,9 @@ namespace Aspİntro
             app.UseSession();
             app.UseStaticFiles();
             app.UseHttpsRedirection();
- 
+
+            app.UseAuthorization();
+            app.UseAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

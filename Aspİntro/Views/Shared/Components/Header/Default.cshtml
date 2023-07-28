@@ -55,6 +55,17 @@
                     </div>
                 </div>
                 <a contact.html" class="nav-item nav-link">Contact</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h3>@User.Identity.Name</h3>
+                    <a asp-controller="Account" asp-action="Logout">Logout</a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login">Login</a>
+                    <a asp-controller="Account" asp-action="Register">Register</a>
+
+                }
             </div>
         </div>
     </div>

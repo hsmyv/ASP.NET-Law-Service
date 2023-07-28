@@ -20,6 +20,9 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Oswald:wght@200;300;400&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="~/admin/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/admin/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="~/admin/assets/vendors/css/vendor.bundle.base.css">
     <!-- CSS Libraries -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -28,10 +31,12 @@
 
     <!-- Template Stylesheet -->
     <link href="~/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/admin/assets/css/style.css">
+
 </head>
 <body>
-   <!-- Header -->
-    @await Component.InvokeAsync("Header"); 
+    <!-- Header -->
+    @await Component.InvokeAsync("Header");
     <!-- Header-->
     <div>
         @RenderBody()
@@ -105,11 +110,19 @@
     <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="~/lib/waypoints/waypoints.min.js"></script>
     <script src="~/lib/counterup/counterup.min.js"></script>
-
+    <script src="~/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="~/admin/assets/js/off-canvas.js"></script>
+    <script src="~/admin/assets/js/hoverable-collapse.js"></script>
+    <script src="~/admin/assets/js/misc.js"></script>
     <!-- Contact Javascript File -->
     <script src="~/mail/jqBootstrapValidation.min.js"></script>
     <script src="~/mail/contact.js"></script>
 
+    @RenderSection("Scripts", false)
     <!-- Template Javascript -->
     <script src="~/js/main.js"></script>
 </body>

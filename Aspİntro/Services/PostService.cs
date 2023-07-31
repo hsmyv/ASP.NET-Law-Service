@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Aspİntro.Services
 {
-    public class ProductService
+    public class PostService : IPostService
     {
         private readonly AppDbContext _context;
 
-        public ProductService(AppDbContext context)
+        public PostService(AppDbContext context)
         {
             _context = context;
         }

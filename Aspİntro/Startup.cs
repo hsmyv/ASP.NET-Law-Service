@@ -42,6 +42,8 @@ namespace Aspİntro
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
                 options.Lockout.AllowedForNewUsers = true;
 
+                options.SignIn.RequireConfirmedEmail = true;
+
             });
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
@@ -49,7 +51,7 @@ namespace Aspİntro
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<LayoutService>();
-            services.AddScoped<ProductService>();
+            services.AddScoped<IPostService, PostService>();
 
 
         }

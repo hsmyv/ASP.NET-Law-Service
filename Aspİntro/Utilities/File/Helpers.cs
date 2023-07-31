@@ -21,4 +21,10 @@ namespace Aspİntro.Utilities.File
             }
         }
     }
+
+    public enum UserRoles
+    {
+        Admin,
+        Member
+    }
 }

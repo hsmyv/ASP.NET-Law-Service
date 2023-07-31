@@ -6,6 +6,7 @@ using Aspİntro.Data;
 using Aspİntro.Models;
 using Aspİntro.Services;
 using Aspİntro.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,13 +14,14 @@ using Newtonsoft.Json;
 
 namespace Aspİntro.Controllers
 {
+    [Authorize(Roles = "Member")]
     public class PostController : Controller
     {
         private readonly AppDbContext _context;
         private readonly LayoutService _layoutService;
-        private readonly ProductService _productService;
+        private readonly IPostService _productService;
 
-        public PostController(AppDbContext context, LayoutService layoutService, ProductService productService)
+        public PostController(AppDbContext context, LayoutService layoutService, IPostService productService)
         {
             _context = context;
             _layoutService = layoutService;

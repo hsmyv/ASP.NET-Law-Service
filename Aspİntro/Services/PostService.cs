@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Aspİntro.Data;
 using Aspİntro.Models;
+using Aspİntro.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aspİntro.Services

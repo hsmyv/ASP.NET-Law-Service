@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Aspİntro.Data;
 using Aspİntro.Models;
 using Aspİntro.Services;
+using Aspİntro.Services.Interfaces;
 using Aspİntro.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,18 +15,18 @@ using Newtonsoft.Json;
 
 namespace Aspİntro.Controllers
 {
-    [Authorize(Roles = "Member")]
+    //[Authorize(Roles = "Member")]
     public class PostController : Controller
     {
         private readonly AppDbContext _context;
         private readonly LayoutService _layoutService;
-        private readonly IPostService _productService;
+        private readonly IPostService _postService;
 
-        public PostController(AppDbContext context, LayoutService layoutService, IPostService productService)
+        public PostController(AppDbContext context, LayoutService layoutService, IPostService postService)
         {
             _context = context;
             _layoutService = layoutService;
-            _productService = productService;
+            _postService = postService;
         }
 
         public async Task<IActionResult> Index()
@@ -33,7 +34,7 @@ namespace Aspİntro.Controllers
             Dictionary<string, string> settings = _layoutService.GetSettings();
             int take = int.Parse(settings["HomeTake"]);
             ViewBag.PostCount = _context.Posts.Where(p => p.IsDeleted == false).Count();
-            IEnumerable<Post> posts = await _productService.GetPosts(take);
+            IEnumerable<Post> posts = await _postService.GetPosts(take);
 
             return View(posts);
         }

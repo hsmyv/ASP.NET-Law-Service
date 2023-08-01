@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Aspİntro.Data;
 using Aspİntro.Models;
 using Aspİntro.Services;
+using Aspİntro.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -52,6 +53,8 @@ namespace Aspİntro
             });
             services.AddScoped<LayoutService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IEmailService, EmailService>();
+
 
 
         }

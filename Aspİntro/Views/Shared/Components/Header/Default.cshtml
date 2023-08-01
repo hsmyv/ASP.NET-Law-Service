@@ -55,6 +55,10 @@
                     </div>
                 </div>
                 <a contact.html" class="nav-item nav-link">Contact</a>
+                @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                <a asp-area="AdminArea" asp-controller="Dashboard" asp-action="Index">Go to admin</a>
+            }
                 @if (User.Identity.IsAuthenticated)
                 {
                     <h3>@User.Identity.Name</h3>

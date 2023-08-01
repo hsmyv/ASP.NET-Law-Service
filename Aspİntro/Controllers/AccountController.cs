@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Aspİntro.Models;
+using Aspİntro.Services.Interfaces;
 using Aspİntro.Utilities.File;
 using Aspİntro.ViewModels.Account;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SendGrid;
@@ -18,14 +20,17 @@ namespace Aspİntro.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IEmailService _emailService;
 
-        public AccountController(UserManager<AppUser> userManager, 
-            SignInManager<AppUser> signInManager, 
-            RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
+            IEmailService emailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _emailService = emailService;
         }
         public IActionResult Register()
         {
@@ -60,7 +65,9 @@ namespace Aspİntro.Controllers
 
             var link = Url.Action(nameof(VerifyEmail), "Account", new { userId = newUser.Id, token = code }, Request.Scheme, Request.Host.ToString());
 
-            await SendEmail(newUser.Email, link);
+            string html = $"<a href={link} >Click here</a>";
+            string content = "Email for register confirmation";
+            await _emailService.SendEmailAsync(newUser.Email, newUser.UserName, link, html, content);
 
             return RedirectToAction(nameof(EmailVerification));
         }
@@ -79,19 +86,19 @@ namespace Aspİntro.Controllers
             return View();
         }
 
-        public async Task SendEmail(string email, string url)
-        {
-            var apiKey = "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";
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("hsmusayev@gmail.com", "HStudio Games");
-            var subject = "Verification Email";
-            var to = new EmailAddress(email, "Example User");
-            var plainTextContent = "and easy to do anywhere, even with C#";
-            var htmlContent = $"<a href={url} >Click here</a>";
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            var response = await client.SendEmailAsync(msg);
-        }
-    
+        //public async Task SendEmail(string email, string url)
+        //{
+        //    var apiKey = "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";
+        //    var client = new SendGridClient(apiKey);
+        //    var from = new EmailAddress("hsmusayev@gmail.com", "HStudio Games");
+        //    var subject = "Verification Email";
+        //    var to = new EmailAddress(email, "Example User");
+        //    var plainTextContent = "and easy to do anywhere, even with C#";
+        //    var htmlContent = $"<a href={url} >Click here</a>";
+        //    var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+        //    var response = await client.SendEmailAsync(msg);
+        //}
+
 
         public async Task<IActionResult> Logout()
         {
@@ -106,6 +113,7 @@ namespace Aspİntro.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginVM loginVM)
         {
             if (!ModelState.IsValid) return View(loginVM);
@@ -129,9 +137,9 @@ namespace Aspİntro.Controllers
             }
             SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
 
-            if(!signInResult.Succeeded)
+            if (!signInResult.Succeeded)
             {
-                if(signInResult.IsNotAllowed)
+                if (signInResult.IsNotAllowed)
                 {
                     ModelState.AddModelError("", "Plese confirm your account");
                     return View();
@@ -142,18 +150,80 @@ namespace Aspİntro.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        [Authorize(Roles = "Admin")]
         public async Task CreateRole()
         {
             foreach (var role in Enum.GetValues(typeof(UserRoles)))
             {
-                if(await _roleManager.RoleExistsAsync(role.ToString()))
+                if (await _roleManager.RoleExistsAsync(role.ToString()))
                 {
                     await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString() });
                 }
             }
         }
 
-    }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordVM forgotPasswordVM)
+        {
+            if (!ModelState.IsValid) return View(forgotPasswordVM);
+
+            var user = await _userManager.FindByEmailAsync(forgotPasswordVM.Email);
+            if(user is null)
+            {
+                ModelState.AddModelError("", "This email has not been registered");
+                return View(forgotPasswordVM);
+            }
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var link = Url.Action(nameof(ResetPassword), "Account", new { email = user.Email, token = code}, Request.Scheme, Request.Host.ToString());
+            var html = $"<a href={link} >Click here</a>";
+            var content = "Email for forgot password";
+            await _emailService.SendEmailAsync(user.Email, user.UserName,link, html, content);
+            return RedirectToAction(nameof(ForgotPasswordConfirm));
+        }
+        [HttpGet]
+        public IActionResult ResetPassword(string email, string token)
+        {
+            var resetPasswordModel = new ResetPasswordVM { Email = email, Token = token };
+            return View(resetPasswordModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async  Task<IActionResult> ResetPassword(ResetPasswordVM resetPasswordVM)
+        {
+            if (!ModelState.IsValid) return View(resetPasswordVM);
+
+            var user = await _userManager.FindByEmailAsync(resetPasswordVM.Email);
+            if (user is null) return NotFound();
+            IdentityResult result = await _userManager.ResetPasswordAsync(user, resetPasswordVM.Token, resetPasswordVM.Password);
+           if(!result.Succeeded)
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+
+                }
+                return View(resetPasswordVM);
+            }
+
+            return RedirectToAction(nameof(Login));
+        }
+
+        public IActionResult ForgotPasswordConfirm()
+        {
+            return View();
+        }
+
+
 
 
     }
+
+
+}

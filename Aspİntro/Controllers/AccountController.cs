@@ -156,7 +156,7 @@ namespace Aspİntro.Controllers
         {
             foreach (var role in Enum.GetValues(typeof(UserRoles)))
             {
-                if (await _roleManager.RoleExistsAsync(role.ToString()))
+                if (!await _roleManager.RoleExistsAsync(role.ToString()))
                 {
                     await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString() });
                 }

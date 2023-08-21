@@ -22,6 +22,10 @@ namespace Aspİntro.Data
         public DbSet<PostImage> PostImages{ get; set; }
         public DbSet<Setting> Settings { get; set; }
         public DbSet<ConsultingService> ConsultingServices { get; set; }
+        public DbSet<About> Abouts { get; set; }
+
+        public DbSet<AboutImage> AboutImages { get; set; }
+
         //protected override void OnModelCreating(ModelBuilder modelBuilder) 
         //{
         //    //modelBuilder.Entity<Post>().HasQueryFilter(m => !m.IsDeleted);

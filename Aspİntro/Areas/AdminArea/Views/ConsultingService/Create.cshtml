@@ -1,0 +1,41 @@
+﻿@model ConsultingService
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Consulting Service</h4>
+                    <p class="card-description"> Basic form layout </p>
+                    <div asp-validation-summary="All"></div>
+                    <form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label asp-for="name">Name</label>
+                            <input class="form-control" placeholder="name" asp-for="name">
+                            <span class="text-danger" asp-validation-for="name"></span>
+
+                            <label asp-for="description">Description</label>
+                            <input class="form-control" placeholder="name" asp-for="description">
+                            <span class="text-danger" asp-validation-for="description"></span>
+
+                            <label asp-for="icon">Icon:</label>
+                            <input type="file" class="form33-control" id="icon" asp-for="icon">
+                            <span class="text-danger" asp-validation-for="icon"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <button asp-action="index" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationPartial" />
+}

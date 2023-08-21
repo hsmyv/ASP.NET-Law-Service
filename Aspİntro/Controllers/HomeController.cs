@@ -26,13 +26,16 @@ namespace Aspİntro.Controllers
             //HttpContext.Session.SetString("name", "Hasan");
 
             List<Slider> sliders = await _context.Sliders.ToListAsync();
+            List<ConsultingService> consultingServices = await _context.ConsultingServices.ToListAsync();
+
             SliderDetail detail = await _context.SliderDetails.FirstOrDefaultAsync();
             List<Post> posts = await _context.Posts.Include(x=>x.Images).Include(x=>x.Category).ToListAsync();
             HomeVM homeVM = new HomeVM
             {
                 Sliders = sliders,
                 Detail = detail,
-                Posts  = posts
+                Posts  = posts,
+                ConsultingServices = consultingServices
             };
  
             return View(homeVM); 

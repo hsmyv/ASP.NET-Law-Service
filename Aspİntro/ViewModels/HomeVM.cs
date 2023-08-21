@@ -11,5 +11,7 @@ namespace Aspİntro.ViewModels
         public List<Slider> Sliders { get; set; }
         public List<Post> Posts { get; set; }
         public SliderDetail Detail { get; set; }
+
+        public List<ConsultingService> ConsultingServices { get; set; }
     }
 }

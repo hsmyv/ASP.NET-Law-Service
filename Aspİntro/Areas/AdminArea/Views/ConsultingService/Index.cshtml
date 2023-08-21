@@ -28,29 +28,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var cate in Model)
+                        @foreach (var service in Model)
                         {
                             <tr>
                                 <td>
                                     @count
                                 </td>
                                 <td class="py-1">
-                                    <img src="../../assets/images/faces-clipart/pic-1.png" alt="image" />
+                                    <img src="~/img/@service.icon" alt="image" />
                                 </td>
                                 <td>
-                                    <span class="@(cate.IsDeleted == false ? "text-success" : "text-danger")">
-                                        @cate.Name
+                                    <span class="@(service.IsDeleted == false ? "text-success" : "text-danger")">
+                                        @service.name
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
+                                   <p>@(service.description.Length > 10 ? service.description.Substring(0, 30) : service.description)</p>
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" asp-action="Detail" asp-route-id="@cate.Id">Detail</a>
-                                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@cate.Id">Edit</a>
-                                    <form style="display:inline-block" method="post" asp-action="Delete" asp-route-id="@cate.Id">
+                                    <a class="btn btn-primary" asp-action="Detail" asp-route-id="@service.Id">Detail</a>
+                                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@service.Id">Edit</a>
+                                    <form style="display:inline-block" method="post" asp-action="Delete" asp-route-id="@service.Id">
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>

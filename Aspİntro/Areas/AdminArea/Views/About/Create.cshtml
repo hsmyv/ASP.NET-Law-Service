@@ -19,16 +19,16 @@
                             <label asp-for="Description">Description:</label>
                             <input class="form-control" placeholder="description" asp-for="Description">
                             <span class="text-danger" asp-validation-for="Description"></span>
-                            <label asp-for="Content">Description:</label>
-                            <input class="form-control" placeholder="description" asp-for="Description">
-                            <span class="text-danger" asp-validation-for="Description"></span>
+                            <label asp-for="Content">Content:</label>
+                            <input class="form-control" placeholder="content" asp-for="Content">
+                            <span class="text-danger" asp-validation-for="Content"></span>
                           
                             <span class="text-danger" asp-validation-for="Photos"></span>
                             <label asp-for="Photos">Photo:</label>
                             <input type="file" class="form33-control" id="photo" asp-for="Photos" multiple>
                             <span class="text-danger" asp-validation-for="Photos"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <button type="submit" class="btn btn-primary mr-2">Save</button>
                         <button asp-action="index" class="btn btn-light">Cancel</button>
                     </form>
                 </div>

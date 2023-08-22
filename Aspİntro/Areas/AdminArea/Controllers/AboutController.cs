@@ -8,6 +8,7 @@ using Aspİntro.Utilities.File;
 using Aspİntro.ViewModels.Admin;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aspİntro.Areas.AdminArea.Controllers
 {
@@ -23,30 +24,58 @@ namespace Aspİntro.Areas.AdminArea.Controllers
             _context = context;
             _env = env;
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
         public IActionResult Create()
         {
             return View();
         }
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PostAboutVM aboutVM)
         {
+            var existingRecords = await _context.Abouts.Include(m => m.Images).ToListAsync(); 
+
+            foreach (var existingRecord in existingRecords)
+            {
+                foreach (var image in existingRecord.Images)
+                {
+                    string deletedPath = Helpers.GetFilePath(_env.WebRootPath, "img", image.Image);
+                    Helpers.DeleteFile(deletedPath);
+                }
+            }
+
+            _context.Abouts.RemoveRange(existingRecords);
+
             if (!ModelState.IsValid) return View();
 
             List<AboutImage> imageList = new List<AboutImage>();
-            foreach (var photo in aboutVM.Photos)
+            if (aboutVM.Photos != null)
             {
-                string fileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
-                string path = Helpers.GetFilePath(_env.WebRootPath, "img", fileName);
-
-                await photo.SaveFile(path);
-
-                AboutImage aboutImage = new AboutImage
+                
+                foreach (var photo in aboutVM.Photos)
                 {
-                    Image = fileName
-                };
-                imageList.Add(aboutImage);
+
+                    string fileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                    string path = Helpers.GetFilePath(_env.WebRootPath, "img", fileName);
+
+                    await photo.SaveFile(path);
+
+                    AboutImage aboutImage = new AboutImage
+                    {
+                        Image = fileName
+                    };
+                    imageList.Add(aboutImage);
+                }
             }
             About about = new About
             {
@@ -56,11 +85,15 @@ namespace Aspİntro.Areas.AdminArea.Controllers
                 Images = imageList
 
             };
+          
             await _context.AboutImages.AddRangeAsync(imageList);
             await _context.Abouts.AddAsync(about);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+
 
     }
 }

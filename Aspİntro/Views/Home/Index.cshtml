@@ -1,4 +1,7 @@
 ﻿@model HomeVM
+@{
+    int count = 1;
+}
 
 <!-- Carousel Start -->
 <div class="carousel">
@@ -101,30 +104,28 @@
 </div>
 <!-- Fact Start -->
 <!-- About Start -->
-<div class="about">
+<div class="about mt-125">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="about-img">
-                    <div class="about-img-1">
-                        <img src="~img/about-2.jpg" alt="Image">
-                    </div>
-                    <div class="about-img-2">
-                        <img src="~img/about-1.jpg" alt="Image">
-                    </div>
+                    @foreach (var image in Model.About.Images)
+                    {
+                        <div class="about-img-@count">
+                            <img src="~/img/@image.Image" alt="Image">
+                        </div>
+                        count++;
+                    }
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="section-header">
                     <p>Learn About Us</p>
-                    <h2>25 Years Experience</h2>
+                    <h2>@Model.About.Title</h2>
                 </div>
                 <div class="about-text">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem. Curabitur non nisl nec nisi scelerisque maximus. Aenean consectetur convallis porttitor. Aliquam interdum at lacus non blandit.
+                        @Model.About.Description
                     </p>
                     <a class="btn" href="">Learn More</a>
                 </div>
@@ -148,7 +149,7 @@
                         <img src="~/img/@service.icon" alt="Icon">
                         <h3>@service.name</h3>
                         <p>
-                           @service.description
+                            @service.description
                         </p>
                         <a href="">Read More</a>
                     </div>
@@ -427,7 +428,7 @@
                             <a href="">@post.Category.Name</a>
                             <i class="fa fa-calendar-alt"></i>
                             <p>01-Jan-2045</p>
-                        </div> 
+                        </div>
                         <div class="blog-text">
                             <p>
                                 @post.Description

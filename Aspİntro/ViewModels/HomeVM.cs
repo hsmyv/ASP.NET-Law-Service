@@ -13,5 +13,8 @@ namespace Aspİntro.ViewModels
         public SliderDetail Detail { get; set; }
 
         public List<ConsultingService> ConsultingServices { get; set; }
+
+        public About About { get; set; }
+        public Feature Feature { get; set; }
     }
 }

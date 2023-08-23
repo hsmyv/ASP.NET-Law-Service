@@ -1,0 +1,77 @@
+﻿@model FeatureCreateVM
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Default form</h4>
+                    <p class="card-description"> Basic form layout </p>
+                    <form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
+                        <div class="form-group">
+
+                            <label asp-for="Title">Title:</label>
+                            <input class="form-control" placeholder="title" asp-for="Title">
+                            <label asp-for="Description">Description:</label>
+                            <input class="form-control" placeholder="description" asp-for="Description">
+                            <span class="text-danger" asp-validation-for="Description"></span>
+                            <label asp-for="Image">Image:</label>
+                            <input type="file" class="form33-control" id="Image" asp-for="Image" multiple>
+                            <span class="text-danger" asp-validation-for="Image"></span>
+                        </div>
+                        <div class="form-group">
+
+                            <label asp-for="label1">Label1:</label>
+                            <input class="form-control" placeholder="content" asp-for="label1">
+                            <span class="text-danger" asp-validation-for="label1"></span>
+                            <label asp-for="label1Count">Label1Count:</label>
+                            <input class="form-control" placeholder="content" asp-for="label1Count">
+                            <span class="text-danger" asp-validation-for="label1Count"></span>
+                           
+                        </div>
+                        <div class="form-group">
+
+                            <label asp-for="label2">Label2:</label>
+                            <input class="form-control" placeholder="content" asp-for="label2">
+                            <span class="text-danger" asp-validation-for="label2"></span>
+                            <label asp-for="label2Count">Label2Count:</label>
+                            <input class="form-control" placeholder="content" asp-for="label2Count">
+                            <span class="text-danger" asp-validation-for="label2Count"></span>
+                          
+                        </div>
+                        <div class="form-group">
+
+                            <label asp-for="label3">Label3:</label>
+                            <input class="form-control" placeholder="content" asp-for="label3">
+                            <span class="text-danger" asp-validation-for="label3"></span>
+                            <label asp-for="label3Count">Label3Count:</label>
+                            <input class="form-control" placeholder="content" asp-for="label3Count">
+                            <span class="text-danger" asp-validation-for="label3Count"></span>
+                          
+                        </div>
+                        <div class="form-group">
+
+                            <label asp-for="label4">Label4:</label>
+                            <input class="form-control" placeholder="content" asp-for="label4">
+                            <span class="text-danger" asp-validation-for="label4"></span>
+                            <label asp-for="label4Count">Label4Count:</label>
+                            <input class="form-control" placeholder="content" asp-for="label4Count">
+                            <span class="text-danger" asp-validation-for="label4Count"></span>
+                            
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mr-2">Save</button>
+                        <button asp-action="index" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationPartial" />
+}

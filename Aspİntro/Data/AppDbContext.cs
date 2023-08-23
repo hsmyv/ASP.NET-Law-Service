@@ -26,6 +26,8 @@ namespace Aspİntro.Data
 
         public DbSet<AboutImage> AboutImages { get; set; }
 
+        public DbSet<Feature> Features { get; set; }
+
         //protected override void OnModelCreating(ModelBuilder modelBuilder) 
         //{
         //    //modelBuilder.Entity<Post>().HasQueryFilter(m => !m.IsDeleted);

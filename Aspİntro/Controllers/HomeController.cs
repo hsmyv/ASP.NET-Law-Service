@@ -30,12 +30,15 @@ namespace Aspİntro.Controllers
 
             SliderDetail detail = await _context.SliderDetails.FirstOrDefaultAsync();
             List<Post> posts = await _context.Posts.Include(x=>x.Images).Include(x=>x.Category).ToListAsync();
+            About about = await _context.Abouts.Include(x => x.Images).FirstOrDefaultAsync();
             HomeVM homeVM = new HomeVM
             {
                 Sliders = sliders,
                 Detail = detail,
                 Posts  = posts,
-                ConsultingServices = consultingServices
+                ConsultingServices = consultingServices,
+                About = about,
+
             };
  
             return View(homeVM); 

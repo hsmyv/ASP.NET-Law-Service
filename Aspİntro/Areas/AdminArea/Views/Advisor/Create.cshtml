@@ -1,0 +1,57 @@
+﻿@model Advisor
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Consulting Team</h4>
+                    <p class="card-description"> Basic form layout </p>
+                    <div asp-validation-summary="All"></div>
+                    <form class="forms-sample" method="post" asp-action="Create" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label asp-for="Name">Name</label>
+                            <input class="form-control" placeholder="Name" asp-for="Name">
+                            <span class="text-danger" asp-validation-for="Name"></span>
+
+                            <label asp-for="Profession">Profession</label>
+                            <input class="form-control" placeholder="Profession" asp-for="Profession">
+                            <span class="text-danger" asp-validation-for="Profession"></span>
+
+                            <label asp-for="TwitterUrl">Twitter</label>
+                            <input class="form-control" placeholder="TwitterUrl" asp-for="TwitterUrl">
+                            <span class="text-danger" asp-validation-for="TwitterUrl"></span>
+
+                            <label asp-for="FacebookUrl">Facebook</label>
+                            <input class="form-control" placeholder="FacebookUrl" asp-for="FacebookUrl">
+                            <span class="text-danger" asp-validation-for="FacebookUrl"></span>
+
+                            <label asp-for="LinkedinUrl">Linkedin</label>
+                            <input class="form-control" placeholder="LinkedinUrl" asp-for="LinkedinUrl">
+                            <span class="text-danger" asp-validation-for="LinkedinUrl"></span>
+
+                            <label asp-for="InstagramUrl">Instagram</label>
+                            <input class="form-control" placeholder="InstagramUrl" asp-for="InstagramUrl">
+                            <span class="text-danger" asp-validation-for="InstagramUrl"></span>
+
+                            <label asp-for="Image">Picture:</label>
+                            <input type="file" class="form33-control" id="icon" asp-for="Image">
+                            <span class="text-danger" asp-validation-for="Image"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <button asp-action="index" class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationPartial" />
+}

@@ -27,6 +27,7 @@ namespace Aspİntro.Data
         public DbSet<AboutImage> AboutImages { get; set; }
 
         public DbSet<Feature> Features { get; set; }
+        public DbSet<Advisor> Advisors { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder) 
         //{

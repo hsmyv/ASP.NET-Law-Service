@@ -16,5 +16,6 @@ namespace Aspİntro.ViewModels
 
         public About About { get; set; }
         public Feature Feature { get; set; }
+        public List<Advisor> Advisors { get; set; }
     }
 }

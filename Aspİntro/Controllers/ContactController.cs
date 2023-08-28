@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Aspİntro.Data;
+using Aspİntro.Models;
 using Aspİntro.ViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,46 +24,48 @@ namespace Aspİntro.Controllers
         {
             return View();
         }
-
-        public IActionResult ContactUs(ContactUsVM contactUsVM)
+        [HttpPost]
+        public IActionResult ContactUs(ContactUs contactUs)
         {
-            try
+            //try
+            //{
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress("hsmusayev@gmail.com");
+
+            mail.To.Add(new MailAddress("hsmusayev@gmail.com"));
+
+            mail.Subject = contactUs.Subject;
+
+            mail.IsBodyHtml = true;
+
+            string content = "Name : " + contactUs.Name;
+            content += "<br/> Message : " + contactUs.Message;
+
+            mail.Body = content;
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
             {
-                MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("hsmusayev@gmail.com");
+                Credentials = new NetworkCredential("hsmusayev@gmail.com", "lozpdostnrutxjit"),
+                UseDefaultCredentials = false,
+                Port = 587,
+                EnableSsl = true,
+            };
 
-                mail.To.Add("hsmusayev@gmail.com");
 
-                mail.Subject = contactUsVM.Subject;
-
-                mail.IsBodyHtml = true;
-
-                string content = "Name : " + contactUsVM.Name;
-                content += "<br/> Message : " + contactUsVM.Message;
-
-                mail.Body = content;
-
-                SmtpClient smtpClient = new SmtpClient("hsmusayev@gmail.com");
-
-                NetworkCredential networkCredential = new NetworkCredential("hsmusayev@gmail.com", "Hasan");
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = networkCredential;
-                smtpClient.Port = 25;
-                smtpClient.EnableSsl = false;
-                smtpClient.Send(mail);
+            smtpClient.Send(mail);
 
                 ViewBag.Message = "Mail Send";
 
                 ModelState.Clear();
-            }
-            catch (Exception ex)
-            {
-
-                ViewBag.Message = ex.Message.ToString();
-            }
-
             return View();
-        }
+            }
+            
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    ViewBag.Message = ex.Message.ToString();
+            //}
 
     }
 }

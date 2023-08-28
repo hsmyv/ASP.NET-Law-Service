@@ -46,7 +46,7 @@
                 <a class="nav-item nav-link" asp-controller="consultingService" asp-action="Index">Service</a>
                 <a class="nav-item nav-link" asp-controller="feature" asp-action="Index">Feature</a>
                 <a class="nav-item nav-link" asp-controller="advisor" asp-action="Index">Advisor</a>
-                <a class="nav-item nav-link">Review</a>
+                <a class="nav-item nav-link" asp-controller="review" asp-action="Index">Review</a>
                 <div class="nav-item dropdown">
                     <a #" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu">
@@ -54,7 +54,7 @@
                         <a single.html" class="dropdown-item">Single Page</a>
                     </div>
                 </div>
-                <a contact.html" class="nav-item nav-link">Contact</a>
+                <a class="nav-item nav-link" asp-controller="contact" asp-action="Index">Contact</a>
                 @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
             {
                 <a asp-area="AdminArea" asp-controller="Dashboard" asp-action="Index">Go to admin</a>

@@ -1,0 +1,79 @@
+﻿@model List<Review>
+@{
+    ViewData["Title"] = "Advisors";
+    Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
+    int count = 1;
+}
+
+
+<div class="container">
+    <div class="header d-flex">
+        <h1>Categories</h1>
+        <a class="btn btn-success btn-sm" asp-action="Create">Create Category</a>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Striped Table</h4>
+                <p class="card-description">
+                    Add class <code>.table-striped</code>
+                </p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> #</th>
+                            <th> Image</th>
+                            <th> Name </th>
+                            <th> Profession </th>
+                            <th> Status</th>
+                            <th> Implementation</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var review in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @count
+                                </td>
+                                <td class="py-1">
+                                    <img src="~/img/@review.Image" alt="image" />
+                                </td>
+                                <td>
+                                    @if (review.IsDeleted == true)
+                                    {
+                                        <span>Deleted</span>
+
+                                    }
+                                    else
+                                    {
+                                        @review.Name
+                                    }
+                                </td>
+                                <td>
+                                    @review.Profession
+                                </td>
+                              
+                                <td>
+                                    @review.IsActive
+                                </td>
+
+                                <td>
+                                    <a class="btn btn-primary" asp-action="Detail" asp-route-id="@review.Id">Detail</a>
+                                    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@review.Id">Edit</a>
+                                    <form style="display:inline-block" method="post" asp-action="Delete" asp-route-id="@review.Id">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+
+                            </tr>
+                            count++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

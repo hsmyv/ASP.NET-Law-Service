@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Aspİntro.ViewModels.Account
+namespace Aspİntro.Models
 {
-    public class ContactUsVM
+    public class ContactUs
     {
         [Required]
         public string Name { get; set; }

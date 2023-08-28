@@ -28,6 +28,7 @@ namespace Aspİntro.Data
 
         public DbSet<Feature> Features { get; set; }
         public DbSet<Advisor> Advisors { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder) 
         //{

@@ -1,4 +1,4 @@
-﻿@model ContactUsVM
+﻿@model ContactUs
 @{
     ViewData["Title"] = "Index";
 }
@@ -46,21 +46,24 @@
                     <div id="success"></div>
                     <form name="sentMessage" id="contactForm" novalidate="novalidate" asp-action="ContactUs" method="post">
                         <div class="control-group">
+                            <label asp-for="@Model.Name"></label>
                             <input asp-for="@Model.Name" type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
-                            <p asp-validation-for="@Model.Name" class="help-block text-danger"></p>
+                            <span asp-validation-for="@Model.Name" class="help-block text-danger"></span>
                         </div>
                         @*<div class="control-group">
                             <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
                             <p class="help-block text-danger"></p>
                         </div>*@
-                        <div class="control-group">
-                            <input asp-for="@Model.Subject" type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
-                            <p asp-validation-for="@Model.Subject" class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <textarea class="form-control" asp-for="@Model.Message" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
-                            <p asp-validation-for="@Model.Message" class="help-block text-danger"></p>
-                        </div>
+                    <div class="control-group">
+                        <label asp-for="@Model.Subject"></label>
+                        <input asp-for="@Model.Subject" type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                        <span asp-validation-for="@Model.Subject" class="help-block text-danger"></span>
+                    </div>
+                    <div class="control-group">
+                        <label asp-for="@Model.Message"></label>
+                        <textarea class="form-control" asp-for="@Model.Message" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                        <span asp-validation-for="@Model.Message" class="help-block text-danger"></span>
+                    </div>
                         <div>
                             <button class="btn" type="submit" id="sendMessageButton">Send Message</button>
                         </div>

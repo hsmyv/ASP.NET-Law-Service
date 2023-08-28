@@ -8,12 +8,15 @@ using Microsoft.AspNetCore.Http;
 
 namespace Aspİntro.Models
 {
-    public class Slider
+    public class Slider:BaseEntity
     {
-        public int Id { get; set; }
         [Required]
-        public string Image { get; set; }
+        public string Header { get; set; }
+        public string Description { get; set; }
+        public string GetStartedURL { get; set; }
+        public string WatchVideoURL { get; set; }
         [NotMapped, Required]
-        public IFormFile Photo { get; set; }
+        public string Image { get; set; }
+        public bool IsActive { get; set; }
     }
 }

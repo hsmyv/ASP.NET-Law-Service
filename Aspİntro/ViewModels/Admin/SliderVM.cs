@@ -10,9 +10,12 @@ namespace Aspİntro.ViewModels.Admin
 {
     public class SliderVM
     {
-        public int Id { get; set; }
-
+        [Required]
+        public string Header { get; set; }
+        public string Description { get; set; }
+        public string GetStartedURL { get; set; }
+        public string WatchVideoURL { get; set; }
         [NotMapped, Required]
-        public List<IFormFile> Photos { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

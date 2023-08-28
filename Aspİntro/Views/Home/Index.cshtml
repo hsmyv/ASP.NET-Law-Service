@@ -9,11 +9,11 @@
         <div class="owl-carousel">
             <div class="carousel-item">
                 <div class="carousel-img">
-                    <img src="~img/carousel-1.jpg" alt="Image">
+                    <img src="~/img/" alt="Image">
                 </div>
                 <div class="carousel-text">
-                    <h1>@Model.Detail.Header</h1>
-                    <p>@Model.Detail.Description</p>
+                    <h1></h1>
+                    <p></p>
                     <div class="carousel-btn">
                         <a class="btn" href=""><i class="fa fa-link"></i>Get Started</a>
                         <a class="btn btn-play" data-toggle="modal" data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-target="#videoModal"><i class="fa fa-play"></i>Watch Video</a>
@@ -160,49 +160,49 @@
 </div>
 <!-- Service End -->
 <!-- Feature Start -->
-<div class="feature">
+<div class="feature mt-125">
     <div class="container">
         <div class="row align-items-end">
             <div class="col-md-6">
                 <div class="feature-img">
-                    <img src="~img/business-man.png" alt="Image">
+                    <img src="~/img/@Model.Feature.Image" alt="Image">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="section-header">
                     <p>Our Feature</p>
-                    <h2>Why Choose Us?</h2>
+                    <h2>@Model.Feature.Title</h2>
                 </div>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem. Curabitur non nisl nec nisi scelerisque maximus
+                    @Model.Feature.Description
                 </p>
                 <div class="row counters">
                     <div class="col-6">
                         <i class="fa fa-user"></i>
                         <div class="counters-text">
-                            <h2 data-toggle="counter-up">100</h2>
-                            <p>Our Staffs</p>
+                            <h2 data-toggle="counter-up">@Model.Feature.label1Count</h2>
+                            <p>@Model.Feature.label1</p>
                         </div>
                     </div>
                     <div class="col-6">
                         <i class="fa fa-users"></i>
                         <div class="counters-text">
-                            <h2 data-toggle="counter-up">200</h2>
-                            <p>Our Clients</p>
+                            <h2 data-toggle="counter-up">@Model.Feature.label2Count</h2>
+                            <p>@Model.Feature.label2</p>
                         </div>
                     </div>
                     <div class="col-6">
                         <i class="fa fa-check"></i>
                         <div class="counters-text">
-                            <h2 data-toggle="counter-up">300</h2>
-                            <p>Completed Projects</p>
+                            <h2 data-toggle="counter-up">@Model.Feature.label3Count</h2>
+                            <p>@Model.Feature.label3</p>
                         </div>
                     </div>
                     <div class="col-6">
                         <i class="fa fa-running"></i>
                         <div class="counters-text">
-                            <h2 data-toggle="counter-up">400</h2>
-                            <p>Running Projects</p>
+                            <h2 data-toggle="counter-up">@Model.Feature.label4Count</h2>
+                            <p>@Model.Feature.label3</p>
                         </div>
                     </div>
                 </div>
@@ -219,122 +219,47 @@
             <h2>100% Positive Customer Reviews</h2>
         </div>
         <div class="owl-carousel testimonials-carousel">
-            <div class="testimonial-item">
-                <img src="~img/testimonial-1.jpg" alt="Image">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut mollis mauris. Vivamus egestas eleifend dui ac consequat
-                </p>
-                <h2>Client Name</h2>
-                <h3>Profession</h3>
-            </div>
-            <div class="testimonial-item">
-                <img src="~img/testimonial-2.jpg" alt="Image">
-                <p>
-                    Phasellus pellentesque tempus pretium. Quisque in enim sit amet purus venenatis porttitor sed non velit. Vivamus vehicula finibus
-                </p>
-                <h2>Client Name</h2>
-                <h3>Profession</h3>
-            </div>
-            <div class="testimonial-item">
-                <img src="~img/testimonial-3.jpg" alt="Image">
-                <p>
-                    Sed in lectus eu eros tincidunt cursus. Aliquam eleifend velit nisl. Sed et posuere urna, ut vestibulum massa. Integer quis magna
-                </p>
-                <h2>Client Name</h2>
-                <h3>Profession</h3>
-            </div>
-            <div class="testimonial-item">
-                <img src="~img/testimonial-4.jpg" alt="Image">
-                <p>
-                    Sed in lectus eu eros tincidunt cursus. Aliquam eleifend velit nisl. Sed et posuere urna, ut vestibulum massa. Integer quis magna
-                </p>
-                <h2>Client Name</h2>
-                <h3>Profession</h3>
-            </div>
+            @foreach (var review in Model.Reviews)
+            {
+                <div class="testimonial-item">
+                    <img src="~/img/@review.Image" alt="Image">
+                    <p>
+                        @review.Content
+                    </p>
+                    <h2>@review.Name</h2>
+                    <h3>@review.Profession</h3>
+                </div>
+            }
+
         </div>
     </div>
 </div>
 <!-- Testimonial End -->
-<!-- Team Start -->
-<div class="team">
+<!-- Service Start -->
+<div class="service">
     <div class="container">
         <div class="section-header">
-            <p>Meet Our Advisors</p>
-            <h2>Our Professional Consulting Team</h2>
+            <p>Consulting Services</p>
+            <h2>Our Best Consulting Services</h2>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="~img/team-1.jpg" alt="Team Image">
-                    </div>
-                    <div class="team-text">
-                        <h2>Donald John</h2>
-                        <p>Founder & CEO</p>
-                        <div class="team-social">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                        </div>
+            @foreach (var service in Model.ConsultingServices)
+            {
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-item">
+                        <img src="~/img/@service.icon" alt="Icon">
+                        <h3>@service.name</h3>
+                        <p>
+                            @service.description
+                        </p>
+                        <a href="">Read More</a>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="~img/team-2.jpg" alt="Team Image">
-                    </div>
-                    <div class="team-text">
-                        <h2>Adam Phillips</h2>
-                        <p>Chef Executive</p>
-                        <div class="team-social">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="~img/team-3.jpg" alt="Team Image">
-                    </div>
-                    <div class="team-text">
-                        <h2>Thomas Olsen</h2>
-                        <p>Chef Advisor</p>
-                        <div class="team-social">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="team-item">
-                    <div class="team-img">
-                        <img src="~img/team-4.jpg" alt="Team Image">
-                    </div>
-                    <div class="team-text">
-                        <h2>James Alien</h2>
-                        <p>Advisor</p>
-                        <div class="team-social">
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-facebook-f"></i></a>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
-<!-- Team End -->
+<!-- Service End -->
 <!-- Contact Start -->
 <div class="contact">
     <div class="container">

@@ -15,8 +15,6 @@ namespace Aspİntro.Data
 
         }
 
-        public DbSet<Slider> Sliders { get; set; }
-        public DbSet<SliderDetail> SliderDetails { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<PostImage> PostImages{ get; set; }
@@ -29,6 +27,8 @@ namespace Aspİntro.Data
         public DbSet<Feature> Features { get; set; }
         public DbSet<Advisor> Advisors { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
+
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder) 
         //{

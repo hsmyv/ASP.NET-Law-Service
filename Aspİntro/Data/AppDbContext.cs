@@ -27,7 +27,7 @@ namespace Aspİntro.Data
         public DbSet<Feature> Features { get; set; }
         public DbSet<Advisor> Advisors { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Corousel> Corousels { get; set; }
 
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder) 

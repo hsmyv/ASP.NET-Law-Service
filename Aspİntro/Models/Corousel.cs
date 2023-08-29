@@ -8,14 +8,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace Aspİntro.Models
 {
-    public class Slider:BaseEntity
+    public class Corousel:BaseEntity
     {
         [Required]
         public string Header { get; set; }
         public string Description { get; set; }
         public string GetStartedURL { get; set; }
         public string WatchVideoURL { get; set; }
-        [NotMapped, Required]
         public string Image { get; set; }
         public bool IsActive { get; set; }
     }

@@ -34,7 +34,7 @@
 <!-- Nav Bar Start -->
 <div class="navbar navbar-expand-lg bg-dark navbar-dark">
     <div class="container-fluid">
-        <a href="index.html" class="navbar-brand">Confer</a>
+        <a href="index.html" class="navbar-brand">Law Service</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -62,12 +62,12 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <h3>@User.Identity.Name</h3>
-                    <a asp-controller="Account" asp-action="Logout">Logout</a>
+                    <a class="nav-item nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
                 }
                 else
                 {
-                    <a asp-controller="Account" asp-action="Login">Login</a>
-                    <a asp-controller="Account" asp-action="Register">Register</a>
+                    <a class="nav-item nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                    <a class="nav-item nav-link" asp-controller="Account" asp-action="Register">Register</a>
 
                 }
             </div>

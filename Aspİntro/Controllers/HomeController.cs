@@ -25,7 +25,7 @@ namespace Aspİntro.Controllers
         {
             //HttpContext.Session.SetString("name", "Hasan");
 
-            List<Slider> sliders = await _context.Sliders.ToListAsync();
+            List<Corousel> corousels = await _context.Corousels.ToListAsync();
             List<ConsultingService> consultingServices = await _context.ConsultingServices.ToListAsync();
 
             List<Post> posts = await _context.Posts.Include(x=>x.Images).Include(x=>x.Category).ToListAsync();
@@ -35,7 +35,7 @@ namespace Aspİntro.Controllers
             About about = await _context.Abouts.Include(x => x.Images).FirstOrDefaultAsync();
             HomeVM homeVM = new HomeVM
             {
-                Sliders = sliders,
+                Corousels = corousels,
                 Posts  = posts,
                 ConsultingServices = consultingServices,
                 About = about,

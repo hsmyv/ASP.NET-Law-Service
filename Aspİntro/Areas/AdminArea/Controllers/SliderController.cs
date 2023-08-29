@@ -27,8 +27,8 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<Slider> sliders = await _context.Sliders.AsNoTracking().ToListAsync();
-            return View(sliders);
+            List<Corousel> corousels = await _context.Corousels.AsNoTracking().ToListAsync();
+            return View(corousels);
         }
 
         public IActionResult Create()
@@ -46,16 +46,16 @@ namespace Aspİntro.Areas.AdminArea.Controllers
                 ModelState.AddModelError("Image", "Image type is wrong");
                 return View();
             }
-            if (!sliderVM.Image.CheckFileSize(200))
-            {
-                ModelState.AddModelError("Image", "Image size is big than 100");
-                return View();
-            }
+            //if (!sliderVM.Image.CheckFileSize(200))
+            //{
+            //    ModelState.AddModelError("Image", "Image size is big than 100");
+            //    return View();
+            //}
             string fileName = Guid.NewGuid().ToString() + "_" + sliderVM.Image.FileName;
             string path = Helpers.GetFilePath(_env.WebRootPath, "img", fileName);
             await sliderVM.Image.SaveFile(path);
 
-            Slider slider = new Slider
+            Corousel corousel = new Corousel
             {
                 Header = sliderVM.Header,
                 Description = sliderVM.Description,
@@ -66,7 +66,7 @@ namespace Aspİntro.Areas.AdminArea.Controllers
 
             };
 
-            await _context.Sliders.AddAsync(slider);
+            await _context.Corousels.AddAsync(corousel);
             await _context.SaveChangesAsync();
             #endregion
             //if (ModelState["Photo"].ValidationState == ModelValidationState.Invalid) return View();
@@ -108,29 +108,29 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         public async Task<IActionResult> Delete(int id)
         {
 
-            Slider slider = await GetSliderById(id);
-            if (slider == null) return NotFound();
-            string path = Helpers.GetFilePath(_env.WebRootPath, "img", slider.Image);
+            Corousel corousel = await GetCorouselById(id);
+            if (corousel == null) return NotFound();
+            string path = Helpers.GetFilePath(_env.WebRootPath, "img", corousel.Image);
             Helpers.DeleteFile(path);
-            _context.Sliders.Remove(slider);
+            _context.Corousels.Remove(corousel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task<Slider> GetSliderById(int id)
+        private async Task<Corousel> GetCorouselById(int id)
         {
-            return await _context.Sliders.FindAsync(id);
+            return await _context.Corousels.FindAsync(id);
         }
         
         public async Task<IActionResult> Edit(int id)
         {
-            var slider = await GetSliderById(id);
+            var slider = await GetCorouselById(id);
             if (slider is null) return NotFound();
             return View(slider);
         }
         public async Task<IActionResult> Detail(int id)
         {
-            var slider = await GetSliderById(id);
+            var slider = await GetCorouselById(id);
             if (slider is null) return NotFound();
             return View(slider);
         }
@@ -139,7 +139,7 @@ namespace Aspİntro.Areas.AdminArea.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, SliderVM sliderVM)
         {
-            var dbSlider = await GetSliderById(id);
+            var dbSlider = await GetCorouselById(id);
             if (sliderVM is null) return NotFound();
 
             if (ModelState["Photo"].ValidationState == ModelValidationState.Invalid) return View();
@@ -148,11 +148,11 @@ namespace Aspİntro.Areas.AdminArea.Controllers
                 ModelState.AddModelError("Photo", "Image type is wrong");
                 return View();
             }
-            if (!sliderVM.Image.CheckFileSize(200))
-            {
-                ModelState.AddModelError("Photo", "Image size is big than 100");
-                return View();
-            }
+            //if (!sliderVM.Image.CheckFileSize(200))
+            //{
+            //    ModelState.AddModelError("Photo", "Image size is big than 100");
+            //    return View();
+            //}
             
             string path = Helpers.GetFilePath(_env.WebRootPath, "img", dbSlider.Image);
             Helpers.DeleteFile(path);

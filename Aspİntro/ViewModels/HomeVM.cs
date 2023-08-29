@@ -8,7 +8,7 @@ namespace Aspİntro.ViewModels
 {
     public class HomeVM
     {
-        public List<Slider> Sliders { get; set; }
+        public List<Corousel> Corousels { get; set; }
         public List<Post> Posts { get; set; }
 
         public List<ConsultingService> ConsultingServices { get; set; }

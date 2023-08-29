@@ -23,11 +23,13 @@ namespace Aspİntro.Controllers
         {
             Feature feature = await _context.Features.FirstOrDefaultAsync();
             if (feature is null) return NotFound();
+            List<Review> reviews = await _context.Reviews.Where(m => !m.IsDeleted).ToListAsync();
+            if (reviews is null) return NotFound();
 
-        
 
             HomeVM homeVM = new HomeVM
             {
+                Reviews = reviews,
                 Feature = feature
 
             };

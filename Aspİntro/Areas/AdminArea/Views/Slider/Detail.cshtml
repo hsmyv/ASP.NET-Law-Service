@@ -1,4 +1,4 @@
-﻿@model Slider
+﻿@model Corousel
 @{
     ViewData["Title"] = "Detail";
     Layout = "~/Areas/AdminArea/Views/Shared/_AdminLayout.cshtml";
@@ -8,6 +8,8 @@
 <div class="container">
     <h1>Slider Detail</h1>
     <div class="row">
+        <h1>@Model.Header</h1>
+        <h3>@Model.Description</h3>
         <img src="~/img/@Model.Image" alt="Alternate Text" style="width:150px; height:150px"/>
     </div>
     <a asp-action="Index" class="btn btn-light">Back</a>

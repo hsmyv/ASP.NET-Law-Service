@@ -1,5 +1,4 @@
-﻿@model HomeVM
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
@@ -36,26 +35,5 @@
 </div>
 <!-- Fact Start -->
 <!-- Testimonial Start -->
-<div class="testimonial">
-    <div class="container">
-        <div class="section-header">
-            <p>Testimonial Carousel</p>
-            <h2>100% Positive Customer Reviews</h2>
-        </div>
-        <div class="owl-carousel testimonials-carousel">
-            @foreach (var review in Model.Reviews)
-            {
-            <div class="testimonial-item">
-                <img src="~/img/@review.Image" alt="Image">
-                <p>
-                    @review.Content
-                </p>
-                <h2>@review.Name</h2>
-                <h3>@review.Profession</h3>
-            </div>
-            }
-          
-        </div>
-    </div>
-</div>
+@await Component.InvokeAsync("Review")
 <!-- Testimonial End -->

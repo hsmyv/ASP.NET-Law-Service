@@ -1,0 +1,30 @@
+﻿@Model List<ConsultingService>
+    @{
+        ViewData["Title"] = "Consulting Services";
+    }
+
+    <!-- Service Start -->
+    <div class="service">
+        <div class="container">
+            <div class="section-header">
+                <p>Consulting Services</p>
+                <h2>Our Best Consulting Services</h2>
+            </div>
+            <div class="row">
+                @foreach (var service in Model)
+                {
+                    <div class="col-lg-3 col-md-6">
+                        <div class="service-item">
+                            <img src="~/img/@service.icon" alt="Icon">
+                            <h3>@service.name</h3>
+                            <p>
+                                @service.description
+                            </p>
+                            <a href="">Read More</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->

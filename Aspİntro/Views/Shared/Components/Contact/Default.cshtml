@@ -1,0 +1,32 @@
+﻿@model Dictionary<string, string>
+
+
+<div class="col-md-5">
+    <div class="contact-info">
+        <div class="contact-icon">
+            <i class="fa fa-map-marker-alt"></i>
+        </div>
+        <div class="contact-text">
+            <h3>Our Head Office</h3>
+            <p>@Model["Address"]</p>
+        </div>
+    </div>
+    <div class="contact-info">
+        <div class="contact-icon">
+            <i class="fa fa-phone-alt"></i>
+        </div>
+        <div class="contact-text">
+            <h3>Call for Help</h3>
+            <p>@Model["Phone"]</p>
+        </div>
+    </div>
+    <div class="contact-info">
+        <div class="contact-icon">
+            <i class="fa fa-envelope"></i>
+        </div>
+        <div class="contact-text">
+            <h3>Email for Information</h3>
+            <p>@Model["Email"]</p>
+        </div>
+    </div>
+</div>
